@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.12">
+<title>Programmeren in C#</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Noto+Sans);
+@import url(https://cdn.jsdelivr.net/gh/asciidoctor/asciidoctor@2.0/data/stylesheets/asciidoctor-default.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+--maincolor:#FFFFFF;
+--primarycolor:#4CAF50; /* Green 500 */
+--secondarycolor:#ba3925;
+--tertiarycolor: #186d7a;
+--sidebarbackground:#1B5E20; /* Green 900 */
+--linkcolor:#A5D6A7; /* Green 200 */
+--linkcoloralternate:#f44336;
+--white:#FFFFFF;
+--black:#000000;
+}
+
+body{font-family: "Noto Sans",sans-serif;}
+
+#header{background-color:var(--primarycolor); padding:25px;max-width: none;}
+#footer{background-color: var(--sidebarbackground);}
+h1,h2,h3{background-color:var(--primarycolor);color:var(--white) !important;font-family:"Noto Sans",sans-serif;text-decoration:none;padding:10px;}
+h4,h5,h6{color:var(--primarycolor);}
+.title{color:var(--sidebarbackground) !important;font-family:"Noto Sans",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Noto Sans",sans-serif ! important}
+#toc.toc2 a:link{color:white;}
+
+a {
+  text-decoration: none;
+  color: var(--linkcolor);
+}
+a:hover {
+  color: var(--sidebarbackground);
+}
+.quoteblock blockquote::before {
+  color: var(--linkcolor);
+}
+mark {
+  color: var(--white);
+  background-color: var(--linkcolor);
+}
+
+/* Card styling */
+.sect1{border-bottom:1px solid grey;border-radius:8px;}
+
+/* Table styles */
+th{background-color: var(--linkcolor);color:#FFFFFF;}
+
+#toc.toc2{background-color:var(--sidebarbackground);color:white !important;}
+#toc.toc2.a{color:var(--white);}
+#toc.toc2.a:active{color:var(--white) !important;}
+#toc.toc2.a:visited{color:var(--white) !important;}
+#toctitle{color:white;font-size: 16px;}
+
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+
+@media all and (max-width: 600px) {
+table {
+  width: 55vw!important;
+  font-size: 3vw;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/monokai.min.css">
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Programmeren in C#</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Inhoud</div>
+<ul class="sectlevel1">
+<li><a href="#_hoofdstuk_3_objecten_en_methoden_voor_eenvoudige_graphics">Hoofdstuk 3. Objecten en methoden voor eenvoudige graphics</a></li>
+<li><a href="#_hoofdstuk_4_variabelen_en_berekeningen">Hoofdstuk 4. Variabelen en berekeningen</a></li>
+<li><a href="#_hoofdstuk_5_methoden_en_argumenten">Hoofdstuk 5. Methoden en argumenten</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_hoofdstuk_3_objecten_en_methoden_voor_eenvoudige_graphics">Hoofdstuk 3. Objecten en methoden voor eenvoudige graphics</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+we raden je aan om voorafgaand aan het schrijven van de programma’s eerst wat ruwe schetsen en berekeningen te maken. Je kunt een soortgelijk project gebruiken voor alle vragen, met een Canvas om te tekenen en een knop met bijbehorend event om het tekenen te initiëren. Experimenteer ook eens met een XAML-versie in plaats van een C#-versie, zoals uitgelegd in paragraaf 3.11.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Schrijf een programma dat een rechthoekige driehoek tekent.
+Kies geschikte afmetingen.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef3_1_Driehoek.gif" alt="Oef3 1 Driehoek">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een programma dat een leeg boter-kaas-en-eierenbord tekent,
+opgebouwd uit lijnen.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef3_2_BoterKaasEieren.gif" alt="Oef3 2 BoterKaasEieren">
+</div>
+</div>
+</li>
+<li>
+<p>Ontwerp een simpel huis en schrijf een programma dat dit huis tekent.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef3_3_Huis.gif" alt="Oef3 3 Huis">
+</div>
+</div>
+</li>
+<li>
+<p>Dit zijn wat gegevens voor de jaarlijkse regenval in het fictieve land Xanadu:</p>
+<div class="openblock">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2009</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">150 cm</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2010</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">175 cm</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2011</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">120 cm</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2012</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">130 cm</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Geef deze gegevens weer in de vorm van een serie ingekleurde rechthoeken.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef3_4_Regenval.gif" alt="Oef3 4 Regenval">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een programma dat een roos van verschillend gekleurde
+concentrische cirkels tekent op het scherm. (De aanschaf van een
+pistool met zuignappijltjes om daarmee op het scherm te schieten is
+facultatief!)</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef3_5_Roos.gif" alt="Oef3 5 Roos">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een programma dat in grote lijnen een gezicht tekent. Je kunt
+hierbij ellipsen gebruiken, zowel voor de omtrek van het gezicht, als
+voor de ogen, de oren, de neus en de mond.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef3_6_Gezicht.gif" alt="Oef3 6 Gezicht">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hoofdstuk_4_variabelen_en_berekeningen">Hoofdstuk 4. Variabelen en berekeningen</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Gebruik bij onderstaande opgaven afwisselend <code>Label</code>- en <code>TextBlock</code>-elementen.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Breid het rechthoekprogramma van dit hoofdstuk uit naar een programma
+dat het volume van een blok berekent als de afmetingen van de drie
+zijden gegeven zijn.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_1_VolumeBlok.gif" alt="Oef4 1 VolumeBlok">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een programma om de omtrek, oppervlakte en het volume van een cirkel en een
+bol te berekenen. Voer hiervoor de volgende stappen uit.</p>
+<div class="openblock">
+<div class="content">
+<div class="olist loweralpha">
+<ol class="loweralpha">
+<li>
+<p>Bereken voor de waarde:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">double radius = 7.5;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>met behulp van toekenningsopdrachten de omtrek en oppervlakte van een cirkel en het
+volume van een bol, gebaseerd op dezelfde straal. Geef de resultaten weer in
+berichtvensters. In de uitvoer moet duidelijk in woorden worden aangegeven wat het
+resultaat is, alleen een getal is niet voldoende. Voor deze berekeningen heb je het
+getal π nodig, dat bij benadering gelijk is aan 3,14. C# heeft een constante
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.math.pi" target="_blank" rel="noopener"><code>PI</code></a>, waarin de waarde van π
+in meer decimalen is opgeslagen. Deze constante behoort tot de klasse
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.math" target="_blank" rel="noopener"><code>Math</code></a>. In diezelfde klasse vind
+je ook de functie <a href="https://docs.microsoft.com/en-us/dotnet/api/system.math.pow" target="_blank" rel="noopener"><code>Pow(x,y)</code></a> die
+een getal x tot de macht y verheft. De volgende formules laten het gebruik zien:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">circumference = 2 * Math.PI * radius;
+area = Math.PI * Math.Pow(radius, 2);
+volume = (4 * Math.PI / 3) * Math.Pow(radius, 3);</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Pas onderdeel a. zo aan dat er een tekstvak gebruikt wordt voor de straal, en labels
+voor de resultaten. Gebruik extra labels om de presentatie van je resultaten te verduidelijken.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_2_OmtrOppVolBol.gif" alt="Oef4 2 OmtrOppVolBol">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Twee studenten nemen deel aan een C#-examen. Hun resultaten (een
+geheel aantal punten tussen 0 en 100) worden toegekend aan twee
+variabelen:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">int outcomeStudent1 = 44;
+int outcomeStudent2 = 51;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Schrijf een programma dat het gemiddelde cijfer berekent als een
+<code>double</code>-waarde en dit cijfer op het scherm laat zien. Controleer je antwoord met een rekenmachine.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_3_Gemiddelde.gif" alt="Oef4 3 Gemiddelde">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Het examen van de vorige opgave wordt nu door een zeer precieze
+examinator nagekeken, die gehele getallen eerst omzet naar doubles
+alvorens het resultaat te berekenen. Controleer opnieuw je antwoord
+met een rekenmachine.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_4_Gemiddelde.gif" alt="Oef4 4 Gemiddelde">
+</div>
+</div>
+</li>
+<li>
+<p>Neem aan dat de inkomstenbelasting voor particulieren twintig
+procent bedraagt. Haal een inkomenswaarde uit een tekstvak op en
+bereken daarna de inkomstenbelasting en het inkomen na de
+belastinginhouding. Laat alle waarden met een duidelijke toelichting
+met behulp van labels op het scherm zien.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_5_Belasting.gif" alt="Oef4 5 Belasting">
+</div>
+</div>
+</li>
+<li>
+<p>Gebruik het type <code>double</code> voor het maken van een variabele die een
+temperatuur in graden Fahrenheit bevat en druk het equivalent in
+graden Celsius op het scherm af. De formule die je hierbij moet
+gebruiken is:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">celcius = (fahrenheit – 32) * 5 / 9;</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_6_Temperatuur.gif" alt="Oef4 6 Temperatuur">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>We hebben een aantal seconden aangeleverd gekregen:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">int totalNumberOfSeconds = 2549;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Schrijf een programma dat dit aantal omrekent naar uren, minuten en seconden.
+Werk een voorbeeld uit op papier voordat je het programma gaat schrijven.
+Gebruik één berichtvenster om de resultaten te laten zien, in de vorm:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">H:0  M:42  S:29</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_7_UMS.gif" alt="Oef4 7 UMS">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Deze opgave gaat over elektrische weerstanden, die <em>weerstand bieden</em> aan een
+elektrische stroom die erdoorheen gaat. Deze weerstanden kunnen achter elkaar
+(in serie) of naast elkaar (parallel) geschakeld worden. In het eerste geval is
+de totale weerstand groter dan elk van de losse weerstanden, in het tweede geval
+kleiner. Dit kun je vergelijken met het koppelen van tuinslangen: aan het einde van twee slangen achter elkaar stroomt minder water per seconde naar buiten dan uit elke slang afzonderlijk; bij twee slangen naast elkaar juist meer.</p>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Als de beginwaarden van de weerstanden gegeven zijn door:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">double r1 = 4.7;
+double r2 = 6.8;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>bereken dan de serieweerstand, gegeven door:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">series = r1 + r2;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>en de parallelweerstand gegeven door:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">parallel = (r1 * r2) / (r1 + r2);</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_8_Weerstanden.gif" alt="Oef4 8 Weerstanden">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>We willen software maken voor een frisdrankautomaat. Dit zijn de gegevens: alle dranken
+kosten minder dan 2 euro en dat is ook de grootste munt die kan worden ingeworpen. Maak
+een programma dat bij een gegeven ingeworpen bedrag en prijs van het drankje het
+wisselgeld berekent met zo min mogelijk munten. Bijvoorbeeld bij:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">int amountGiven = 100;
+int itemCost = 45;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>moet het resultaat een aantal berichtvensters (voor elke munt) zijn in de vorm:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Number of 1 euro coins is 0
+Number of 50 cent coins is 1
+Number of 20 cent coins is 0
+Number of 10 cent coins is 0
+Number of 5 cent coins is 1
+Number of 2 cent coins is 0
+Number of 1 cent coins is 0</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+reken in eurocenten en maak goed gebruik van de %-operator. We gebruiken
+muntstukken van 1, 2, 5, 10, 20, 50 eurocent en 1 of 2 euro.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_9_Frisdrankautomaat.gif" alt="Oef4 9 Frisdrankautomaat">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een programma dat het eindsaldo (:stem[e]) op een bankrekening berekent. Het
+beginsaldo (b), het aantal jaren (n), en de rente per jaar (r) kunnen variëren.
+Gebruik hierbij de formule:</p>
+<div class="openblock">
+<div class="content">
+<div class="stemblock">
+<div class="content">
+\$e = b * (1 + r / 100)^n\$
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_10_Bankrekening.gif" alt="Oef4 10 Bankrekening">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een programma dat een <code>int</code>-getal omzet naar een binair getal. Het getal
+wordt via een <code>TextBox</code> ingelezen en vervolgens is het binaire getal in een label
+terug te vinden. Beperk je tot getallen die tussen 0 en 255 liggen.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef4_11_Binair.gif" alt="Oef4 11 Binair">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hoofdstuk_5_methoden_en_argumenten">Hoofdstuk 5. Methoden en argumenten</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Bouw om de methoden die je schrijft uit te proberen een simpele GUI met
+     tekstvakken, labels en berichtvensters. Maak een knop waarmee je je
+     programma kunt laten beginnen.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>De eerste opgaven hebben betrekking op <code>void</code>-methoden en op het doorgeven als waarde.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Schrijf een methode genaamd <code>ShowName</code>, met één parameter van het type `string. Deze
+moet de opgegeven naam in een berichtvenster laten zien.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_1_ToonNaam.gif" alt="Oef5 1 ToonNaam">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een methode genaamd <code>ShowNames</code>, met twee parameters die je voornaam en je
+achternaam voorstellen. De methode moet je voornaam in een berichtvenster laten zien en
+daarna je achternaam in een ander berichtvenster.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_2_ToonNamen.gif" alt="Oef5 2 ToonNamen">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een methode genaamd <code>ShowSalary</code>, met twee integerparameters die het jaarsalaris
+van een werknemer en het aantal jaren dat deze gewerkt heeft voorstellen. De methode moet
+het totale inkomen over dat aantal jaren berekenen en dit tonen in een berichtvenster,
+aangenomen dat de werknemer elk jaar evenveel heeft verdiend.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_3_ToonInkomen.gif" alt="Oef5 3 ToonInkomen">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een methode die een cirkel tekent bij gegeven coördinaten van het middelpunt en
+gegeven straal. De header moet zijn:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">private void DrawCircle(Canvas drawArea,
+                        SolidColorBrush brush,
+                        double xCentre, double yCentre, double radius)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Voorzie een drietal tekstvakken om het middelpunt en de straal in te geven. Na een druk op
+de knop verschijnt de cirkel.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_4_Cirkel.gif" alt="Oef5 4 Cirkel">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Herschrijf de <code>DrawTriangle2</code>-methode, waarbij je gebruikmaakt van de bestaande klasse
+<a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.shapes.polygon" target="_blank" rel="noopener">Polygon</a> (veelhoek).
+Zoek deze klasse op via de Help.</p>
+<div class="openblock">
+<div class="content">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+een <a href="https://docs.microsoft.com/en-us/dotnet/api/system.windows.shapes.polygon" target="_blank" rel="noopener">Polygon</a>-object bevat een verzameling punten die samen een gesloten veelhoek definiëren.
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_5_Polygon.gif" alt="Oef5 5 Polygon">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een methode genaamd <code>DrawStreet</code>, die een straat met huizen tekent en gebruikmaakt
+van de behandelde <code>DrawHouse</code>-methode. In dit vraagstuk gaan we ervan uit dat een straat uit
+vier huizen bestaat en dat er tussen twee aangrenzende huizen een ruimte van twintig pixels zit.
+De argumenten leveren de plaats en de grootte van het meest linkse huis en deze zijn gelijk aan
+die van <code>DrawHouse</code>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_6_DrawStreet.gif" alt="Oef5 6 DrawStreet">
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een methode genaamd <code>DrawStreetInPerspective</code>, met dezelfde argumenten als in de vorige
+opgave, maar met het verschil dat elk huis nu twintig procent kleiner is dan het huis links
+ernaast.</p>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_7_DrawStreetInPerspective.gif" alt="Oef5 7 DrawStreetInPerspective">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>De volgende vraagstukken hebben betrekking op functiemethoden met argumenten die als waar-de worden
+doorgegeven.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="8">
+<li>
+<p>Schrijf een functiemethode genaamd <code>CalculateEuroEquivalent</code>, die bij een gegeven aantal dollars
+het aantal euro’s berekent. Een voorbeeld van een aanroep is:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">double euro = CalculateEuroEquivalent(37.50); // 37.5 dollars</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Zoek zelf de huidige wisselkoers op.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_8_EuroEquivalent.gif" alt="Oef5 8 EuroEquivalent">
+</div>
+</div>
+</div>
+</div>
+</li>
+<li>
+<p>Schrijf een functiemethode genaamd <code>CalculateCubeVolume</code>, die bij een gegeven lengte van een
+ribbe (de zijde van een kubus) het volume berekent. Een voorbeeld van een aanroep is:</p>
+<div class="openblock">
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">double volume = CalculateCubeVolume(1.2);</code></pre>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="gifs/Oef5_9_KubusVolume.gif" alt="Oef5 9 KubusVolume">
+</div>
+</div>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2021-01-20 10:20:41 +0100
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
+<script>
+if (!hljs.initHighlighting.called) {
+  hljs.initHighlighting.called = true
+  ;[].slice.call(document.querySelectorAll('pre.highlight > code')).forEach(function (el) { hljs.highlightBlock(el) })
+}
+</script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>
